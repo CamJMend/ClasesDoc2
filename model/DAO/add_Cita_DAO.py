@@ -1,4 +1,4 @@
-from model.Objects.Cita import Cita
+from model.Object.Cita import Cita
 from dbConnection.FirebaseConnection import FirebaseConnection
 
 class AddCitaDAO:
@@ -16,6 +16,7 @@ class AddCitaDAO:
             if not isinstance(cita, Cita):
                 raise Exception("El objeto no es una cita")
             self.citas_ref.add(cita.create_dictionary())
+            print("added")
         except Exception as e:
             print(f"Error al agregar cita: {e}")
             return
