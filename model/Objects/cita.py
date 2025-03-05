@@ -1,6 +1,3 @@
-from dbConnection.FirebaseConnection import FirebaseConnection
-from model.medico import Medico
-from model.paciente import Paciente
 
 
 class Cita:
@@ -15,3 +12,13 @@ class Cita:
     #def crear_cita(self, fecha, hora, motivo):
     #def cancelar_cita(self, motivo):
     #def actualizar_cita(self, params):
+    def create_dictionary(self):
+            return {
+                "fecha_hora": self.fecha_hora,
+                "motivo": self.motivo,
+                "curr_status": self.curr_status,
+                "idc": self.idc,
+                "medico": self.medico.create_dictionary(),
+                "paciente": self.paciente.create_dictionary()
+            }
+
