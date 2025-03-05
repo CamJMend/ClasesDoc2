@@ -1,3 +1,8 @@
+from dbConnection.FirebaseConnection import FirebaseConnection
+from model.medico import Medico
+from model.paciente import Paciente
+
+
 class Cita:
     def __init__(self, fecha_hora, motivo, curr_status, idc, medico, paciente):
         self.fecha_hora = fecha_hora
