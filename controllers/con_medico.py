@@ -1,10 +1,21 @@
-from modelo.medico import Medico
+from model.Objects.medico import Medico
 
-class ControladorMedico:
-    def __init__(self, medico):
-        self.medico = medico
+class ControllerMedico:
+    def __init__(self):
+        self.modelo = Medico()
 
-    #def actualizar_consulta(self, ID):
-    #def aceptar_cita(self):
-    #def ver_citas_agendadas(self, ID):
-    #def cancelar_cita(self, ID):
+    def agregar_cita(self, fecha, hora, motivo):
+        nueva_cita = {
+            'id': len(self.modelo.citas) + 1,
+            'fecha': fecha,
+            'hora': hora,
+            'motivo': motivo,
+            'estado': 'Pendiente'
+        }
+        return self.modelo.agregar_cita(nueva_cita)
+
+    def obtener_citas(self):
+        return self.modelo.obtener_citas()
+
+    def aceptar_cita(self, cita_id):
+        return self.modelo.aceptar_cita(cita_id)

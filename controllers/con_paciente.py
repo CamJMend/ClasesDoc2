@@ -1,11 +1,11 @@
-from modelo.paciente import Paciente
+from model.Objects.paciente import Paciente
 
-class ControladorPaciente:
-    def __init__(self, paciente):
-        self.paciente = paciente
+class ControllerPaciente:
+    def __init__(self):
+        self.modelo = Paciente()
 
-    def agendar_cita(self, fecha_hora, motivo, medico_id):
-        return self.paciente.agendar_cita(fecha_hora, motivo, medico_id)
+    def agendar_cita(self, fecha, hora, motivo):
+        return self.modelo.agendar_cita(fecha, hora, motivo)
 
-    def cancelar_cita(self, idc):
-        return self.paciente.cancelar_cita(idc)
+    def obtener_estado_cita(self, cita_id):
+        return self.modelo.obtener_estado_cita(cita_id)

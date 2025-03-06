@@ -1,10 +1,18 @@
-from model.usuario import Usuario
+from model.Objects.cita import Cita
 
-class Enfermera(Usuario):
-    def __init__(self, id, nombre, fecha_nacimiento, horario_trabajo):
-        super().__init__(id, nombre, fecha_nacimiento, "enfermera")
-        self.horario_trabajo = horario_trabajo
-    
-    #def actualizar_cita(self):
-    #def registrar_signos_vitales(self, id):
-    #def actualizar_consulta(self, idc):
+class Enfermera:
+    def __init__(self):
+        self.citas = []  # This will store Cita objects
+
+    def agregar_cita(self, cita):
+        if isinstance(cita, Cita):  # Ensure the input is a Cita object
+            self.citas.append(cita)
+            return True
+        return False
+
+    def actualizar_estado_cita(self, cita_id, estado):
+        for cita in self.citas:
+            if cita.id == cita_id:
+                cita.estado = estado
+                return True
+        return False

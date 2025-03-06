@@ -1,17 +1,10 @@
-from dbConnection.FirebaseConnection import FirebaseConnection
-from model.medico import Medico
-from model.paciente import Paciente
-
-
 class Cita:
-    def __init__(self, fecha_hora, motivo, curr_status, idc, medico, paciente):
-        self.fecha_hora = fecha_hora
+    def __init__(self, id, fecha, hora, motivo, estado='Pendiente'):
+        self.id = id
+        self.fecha = fecha
+        self.hora = hora
         self.motivo = motivo
-        self.curr_status = curr_status
-        self.idc = idc
-        self.medico = medico
-        self.paciente = paciente
-    
-    #def crear_cita(self, fecha, hora, motivo):
-    #def cancelar_cita(self, motivo):
-    #def actualizar_cita(self, params):
+        self.estado = estado
+
+    def __repr__(self):
+        return f"Cita(id={self.id}, fecha={self.fecha}, hora={self.hora}, motivo={self.motivo}, estado={self.estado})"
