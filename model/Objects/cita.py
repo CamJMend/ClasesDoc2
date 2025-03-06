@@ -1,26 +1,20 @@
-
-
 class Cita:
-    def __init__(self, id, fecha, hora, motivo, estado='Pendiente'):
-        self.id = id
+    def __init__(self, fecha, hora, motivo, estado, id_cita, id_medico, id_paciente):
         self.fecha = fecha
         self.hora = hora
         self.motivo = motivo
-        self.curr_status = curr_status
-        self.idc = idc
-        self.medico = medico
-        self.paciente = paciente
-    
-    #def crear_cita(self, fecha, hora, motivo):
-    #def cancelar_cita(self, motivo):
-    #def actualizar_cita(self, params):
-    def create_dictionary(self):
-            return {
-                "fecha_hora": self.fecha_hora,
-                "motivo": self.motivo,
-                "curr_status": self.curr_status,
-                "idc": self.idc,
-                "medico": self.medico.create_dictionary(),
-                "paciente": self.paciente.create_dictionary()
-            }
+        self.estado = estado
+        self.id_cita = id_cita
+        self.id_medico = id_medico
+        self.id_paciente = id_paciente
 
+    def create_dictionary(self):
+        return {
+            "fecha": self.fecha,
+            "hora": self.hora,
+            "motivo": self.motivo,
+            "estado": self.estado,
+            "id_cita": self.id_cita,
+            "id_medico": self.id_medico,
+            "id_paciente": self.id_paciente
+        }

@@ -2,22 +2,7 @@
 
 {% block content %}
 <h2>Enfermera</h2>
-
-<!-- Form to Add a New Cita -->
 <form method="POST">
-    <h3>Agregar Nueva Cita</h3>
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" name="fecha" required>
-    <label for="hora">Hora:</label>
-    <input type="time" id="hora" name="hora" required>
-    <label for="motivo">Motivo:</label>
-    <input type="text" id="motivo" name="motivo" required>
-    <button type="submit" name="agregar_cita">Agregar Cita</button>
-</form>
-
-<!-- Form to Update Cita Status -->
-<form method="POST">
-    <h3>Actualizar Estado de Cita</h3>
     <label for="cita_id">ID de Cita:</label>
     <input type="number" id="cita_id" name="cita_id" required>
     <label for="estado">Nuevo Estado:</label>
@@ -25,16 +10,13 @@
     <button type="submit" name="actualizar_estado_cita">Actualizar Estado</button>
 </form>
 
-<!-- Display Citas -->
-{% if citas %}
-    <h3>Citas Registradas</h3>
-    <ul>
-        {% for cita in citas %}
-        <li>
-            ID: {{ cita.id }}, Fecha: {{ cita.fecha }}, Hora: {{ cita.hora }}, 
-            Motivo: {{ cita.motivo }}, Estado: {{ cita.estado }}
-        </li>
-        {% endfor %}
-    </ul>
-{% endif %}
+<!-- Formulario para registrar signos vitales -->
+<form method="POST">
+    <h3>Registrar Signos Vitales</h3>
+    <label for="paciente_id">ID de Paciente:</label>
+    <input type="text" id="paciente_id" name="paciente_id" required>
+    <label for="signos">Signos Vitales:</label>
+    <textarea id="signos" name="signos" required></textarea>
+    <button type="submit" name="registrar_signos">Registrar Signos</button>
+</form>
 {% endblock %}
