@@ -1,10 +1,10 @@
+from model.DAO.citaDAO import AddCitaDAO
 from model.Objects.cita import Cita
-from dbConnection.FirebaseConnection import FirebaseConnection
 
 class NuevaCitaController:
-    def __init__():
-        pass
-    def addCita(self, fecha, hora, motivo, medico, paciente):
-        nueva_cita = Cita(fecha, hora, motivo, "pendiente", medico, paciente)
-        #self.cita_dao.nueva_cita(cita)
-        pass
+    def __init__(self):
+        self.dao = AddCitaDAO()
+
+    def crear_cita(self, fecha, hora, motivo, estado, id_cita, id_medico, id_paciente):
+        nueva_cita = Cita(fecha, hora, motivo, estado, id_cita, id_medico, id_paciente)
+        self.dao.add_cita(nueva_cita)

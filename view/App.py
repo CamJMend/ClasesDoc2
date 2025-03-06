@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-from controllers.con_admin import ControllerAdmin
-from controllers.con_medico import ControllerMedico
-from controllers.con_paciente import ControllerPaciente
-from controllers.con_enfermera import ControllerEnfermera
+from controllers.adminController import AdminController
+from controllers.pacienteController import PacienteController
+from controllers.medicoController import MedicoController
+from controllers.enfermeraController import EnfermeraController
 
 app = Flask(__name__)
 
@@ -10,107 +10,53 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-ADMIN_TEMPLATE = 'admin.html'
-
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    print("Admin route accessed")  # Debugging
-    controller = ControllerAdmin()
-    
+    controller = AdminController()
     if request.method == 'POST':
-        print("POST request received")  # Debugging
         if 'gestionar_citas' in request.form:
-            print("Gestionar citas form submitted")  # Debugging
             citas = controller.gestionar_citas()
-            print(f"Citas retrieved: {citas}")  # Debugging
-            return render_template(ADMIN_TEMPLATE, citas=citas)
-        
-        elif 'agregar_cita' in request.form:
-            print("Agregar cita form submitted")  # Debugging
-            fecha = request.form['fecha']
-            hora = request.form['hora']
-            motivo = request.form['motivo']
-            controller.agregar_cita(fecha, hora, motivo)
-            return redirect(url_for('admin'))
-        
-        elif 'buscar_cita' in request.form:
-            print("Buscar cita form submitted")  # Debugging
-            cita_id = int(request.form['cita_id'])
-            cita = controller.buscar_cita_por_id(cita_id)
-            return render_template(ADMIN_TEMPLATE, cita=cita)
-    
-    return render_template(ADMIN_TEMPLATE)
-
-@app.route('/medico', methods=['GET', 'POST'])
-def medico():
-    print("Medico route accessed")  # Debugging
-    controller = ControllerMedico()
-    
-    if request.method == 'POST':
-        if 'agregar_cita' in request.form:
-            fecha = request.form['fecha']
-            hora = request.form['hora']
-            motivo = request.form['motivo']
-            controller.agregar_cita(fecha, hora, motivo)
-            return redirect(url_for('medico'))
-        
-        elif 'aceptar_cita' in request.form:
-            print("Aceptar cita form submitted")  # Debugging
-            cita_id = int(request.form['cita_id'])
-            controller.aceptar_cita(cita_id)
-            return redirect(url_for('medico'))
-    
-    citas = controller.obtener_citas()
-    return render_template('medico.html', citas=citas)
-
-PACIENTE_TEMPLATE = 'paciente.html'
+            return render_template('admin.html', citas=citas)
+    return render_template('admin.html')
 
 @app.route('/paciente', methods=['GET', 'POST'])
 def paciente():
-    print("Paciente route accessed")  # Debugging
-    controller = ControllerPaciente()
-    
+    controller = PacienteController()
     if request.method == 'POST':
         if 'agendar_cita' in request.form:
-            print("Agendar cita form submitted")  # Debugging
             fecha = request.form['fecha']
             hora = request.form['hora']
             motivo = request.form['motivo']
-            cita = controller.agendar_cita(fecha, hora, motivo)
-            return render_template(PACIENTE_TEMPLATE, cita=cita)
-        
-        elif 'ver_estado_cita' in request.form:
-            print("Ver estado cita form submitted")  # Debugging
-            cita_id = int(request.form['cita_id'])
-            estado = controller.obtener_estado_cita(cita_id)
-            return render_template(PACIENTE_TEMPLATE, estado=estado, cita_id=cita_id)
-    
-    return render_template(PACIENTE_TEMPLATE)
+            id_paciente = request.form['id_paciente']
+            controller.agendar_cita(fecha, hora, motivo, id_paciente)
+            return redirect(url_for('paciente'))
+    return render_template('paciente.html')
+
+@app.route('/medico', methods=['GET', 'POST'])
+def medico():
+    controller = MedicoController()
+    if request.method == 'POST':
+        if 'revisar_citas' in request.form:
+            medico_id = request.form['medico_id']
+            citas = controller.revisar_citas(medico_id)
+            return render_template('medico.html', citas=citas)
+    return render_template('medico.html')
 
 @app.route('/enfermera', methods=['GET', 'POST'])
 def enfermera():
-    print("Enfermera route accessed")  # Debugging
-    controller = ControllerEnfermera()
-    
+    controller = EnfermeraController()
     if request.method == 'POST':
-        print("POST request received")  # Debugging
-        if 'agregar_cita' in request.form:
-            print("Agregar cita form submitted")  # Debugging
-            fecha = request.form['fecha']
-            hora = request.form['hora']
-            motivo = request.form['motivo']
-            controller.agregar_cita(fecha, hora, motivo)
-            return redirect(url_for('enfermera'))
-        
-        elif 'actualizar_estado_cita' in request.form:
-            print("Actualizar estado cita form submitted")  # Debugging
-            cita_id = int(request.form['cita_id'])
+        if 'actualizar_estado_cita' in request.form:
+            cita_id = request.form['cita_id']
             estado = request.form['estado']
             controller.actualizar_estado_cita(cita_id, estado)
             return redirect(url_for('enfermera'))
-    
-    citas = controller.obtener_citas()
-    return render_template('enfermera.html', citas=citas)
+        if 'registrar_signos' in request.form:
+            paciente_id = request.form['paciente_id']
+            signos = request.form['signos']
+            controller.registrar_signos(paciente_id, signos)
+            return redirect(url_for('enfermera'))
+    return render_template('enfermera.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
