@@ -1,6 +1,40 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h2>Médico</h2>
-<p>Aquí puedes revisar y gestionar citas.</p>
+<h2>Paciente</h2>
+
+<!-- Form to Schedule a New Cita -->
+<form method="POST">
+    <h3>Agendar Nueva Cita</h3>
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" required>
+    <label for="hora">Hora:</label>
+    <input type="time" id="hora" name="hora" required>
+    <label for="motivo">Motivo:</label>
+    <input type="text" id="motivo" name="motivo" required>
+    <button type="submit" name="agendar_cita">Agendar Cita</button>
+</form>
+
+<!-- Form to Check Cita Status -->
+<form method="POST">
+    <h3>Ver Estado de Cita</h3>
+    <label for="cita_id">ID de Cita:</label>
+    <input type="number" id="cita_id" name="cita_id" required>
+    <button type="submit" name="ver_estado_cita">Ver Estado</button>
+</form>
+
+<!-- Display Scheduled Cita -->
+{% if cita %}
+    <h3>Cita Agendada</h3>
+    <p>
+        ID: {{ cita.id }}, Fecha: {{ cita.fecha }}, Hora: {{ cita.hora }}, 
+        Motivo: {{ cita.motivo }}, Estado: {{ cita.estado }}
+    </p>
+{% endif %}
+
+<!-- Display Cita Status -->
+{% if estado %}
+    <h3>Estado de Cita</h3>
+    <p>El estado de la cita con ID {{ cita_id }} es: {{ estado }}</p>
+{% endif %}
 {% endblock %}

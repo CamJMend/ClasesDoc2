@@ -1,8 +1,10 @@
 
 
 class Cita:
-    def __init__(self, fecha_hora, motivo, curr_status, idc, medico, paciente):
-        self.fecha_hora = fecha_hora
+    def __init__(self, id, fecha, hora, motivo, estado='Pendiente'):
+        self.id = id
+        self.fecha = fecha
+        self.hora = hora
         self.motivo = motivo
         self.curr_status = curr_status
         self.idc = idc

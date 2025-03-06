@@ -1,9 +1,14 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h2>Médico</h2>
+<h2>Administrador</h2>
 
-<!-- form to add a new cita -->
+<!-- Form to Manage Citas -->
+<form method="POST">
+    <button type="submit" name="gestionar_citas">Gestionar Citas</button>
+</form>
+
+<!-- Form to Add a New Cita -->
 <form method="POST">
     <h3>Agregar Nueva Cita</h3>
     <label for="fecha">Fecha:</label>
@@ -15,15 +20,15 @@
     <button type="submit" name="agregar_cita">Agregar Cita</button>
 </form>
 
-<!-- form to accept a cita -->
+<!-- Form to Search for a Cita by ID -->
 <form method="POST">
-    <h3>Aceptar Cita</h3>
+    <h3>Buscar Cita por ID</h3>
     <label for="cita_id">ID de Cita:</label>
     <input type="number" id="cita_id" name="cita_id" required>
-    <button type="submit" name="aceptar_cita">Aceptar Cita</button>
+    <button type="submit" name="buscar_cita">Buscar Cita</button>
 </form>
 
-<!-- display citas -->
+<!-- Display Citas -->
 {% if citas %}
     <h3>Citas Registradas</h3>
     <ul>
@@ -34,5 +39,14 @@
         </li>
         {% endfor %}
     </ul>
+{% endif %}
+
+<!-- Display Single Cita (Search Result) -->
+{% if cita %}
+    <h3>Resultado de Búsqueda</h3>
+    <p>
+        ID: {{ cita.id }}, Fecha: {{ cita.fecha }}, Hora: {{ cita.hora }}, 
+        Motivo: {{ cita.motivo }}, Estado: {{ cita.estado }}
+    </p>
 {% endif %}
 {% endblock %}

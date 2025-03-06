@@ -1,9 +1,9 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h2>Médico</h2>
+<h2>Enfermera</h2>
 
-<!-- form to add a new cita -->
+<!-- Form to Add a New Cita -->
 <form method="POST">
     <h3>Agregar Nueva Cita</h3>
     <label for="fecha">Fecha:</label>
@@ -15,15 +15,17 @@
     <button type="submit" name="agregar_cita">Agregar Cita</button>
 </form>
 
-<!-- form to accept a cita -->
+<!-- Form to Update Cita Status -->
 <form method="POST">
-    <h3>Aceptar Cita</h3>
+    <h3>Actualizar Estado de Cita</h3>
     <label for="cita_id">ID de Cita:</label>
     <input type="number" id="cita_id" name="cita_id" required>
-    <button type="submit" name="aceptar_cita">Aceptar Cita</button>
+    <label for="estado">Nuevo Estado:</label>
+    <input type="text" id="estado" name="estado" required>
+    <button type="submit" name="actualizar_estado_cita">Actualizar Estado</button>
 </form>
 
-<!-- display citas -->
+<!-- Display Citas -->
 {% if citas %}
     <h3>Citas Registradas</h3>
     <ul>
