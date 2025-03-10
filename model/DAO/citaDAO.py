@@ -9,17 +9,23 @@ class AddCitaDAO:
         else:
             self.citas_ref = self.firebase.db.collection("citas")
 
-    def agregar_cita(self, cita):
-        if self.citas_ref is None:
-            print("Error de conexión a la base de datos")
-            return
+    def agregar_cita(self, fecha, hora, motivo, id_paciente):
         try:
-            if not isinstance(cita, Cita):
-                raise Exception("El objeto no es una cita")
+            cita = Cita(
+                id_cita = len(self.citas_ref.get()) + 1,
+                fecha=fecha,
+                hora=hora,
+                motivo=motivo,
+                estado='Pendiente',
+                id_paciente=id_paciente,
+                id_medico=None,
+            )
             self.citas_ref.add(cita.create_dictionary())
             print("Cita agregada correctamente")
+            return True
         except Exception as e:
             print(f"Error al agregar cita: {e}")
+            return False
 
     def obtener_todas_citas(self):
         try:
