@@ -5,7 +5,7 @@ class AddCitaDAO:
     def __init__(self):
         self.firebase = FirebaseConnection()
         if not self.firebase.db:
-            raise Exception("Error de conexión a la base de datos")
+            raise ConnectionError("Error de conexión a la base de datos")
         else:
             self.citas_ref = self.firebase.db.collection("citas")
     def add_cita(self, cita):
@@ -14,7 +14,7 @@ class AddCitaDAO:
             return
         try:
             if not isinstance(cita, Cita):
-                raise Exception("El objeto no es una cita")
+                raise TypeError("El objeto proporcionado no es una instancia de Cita")
             self.citas_ref.add(cita.create_dictionary())
             print("added")
         except Exception as e:

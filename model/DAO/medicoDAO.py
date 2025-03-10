@@ -4,7 +4,7 @@ class MedicoDAO:
     def __init__(self):
         self.firebase = FirebaseConnection()
         if not self.firebase.db:
-            raise Exception("Error de conexión a la base de datos")
+            raise ConnectionError("Error de conexión a la base de datos")
         else:
             self.citas_ref = self.firebase.db.collection("citas")
 

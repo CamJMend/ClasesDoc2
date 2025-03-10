@@ -5,13 +5,13 @@ class PacienteDAO:
     def __init__(self):
         self.firebase = FirebaseConnection()
         if not self.firebase.db:
-            raise Exception("Error de conexión a la base de datos")
+            raise ConnectionError("Error de conexión a la base de datos")
         else:
             self.citas_ref = self.firebase.db.collection("citas")
 
     def agendar_cita(self, cita):
         if not isinstance(cita, Cita):
-            raise ValueError("El objeto debe ser una instancia de Cita")
+            raise TypeError("El objeto proporcionado no es una instancia de Cita")
         try:
             self.citas_ref.add(cita.create_dictionary())
             print("Cita agendada correctamente")
