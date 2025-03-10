@@ -10,7 +10,7 @@ class FirebaseConnection:
             base_dir = os.path.dirname(os.path.abspath(__file__))
 
             # Create the path to the JSON file, assuming it is in the same folder as the script
-            json_path = os.path.join(base_dir, "mvc-app-236a2-firebase-adminsdk-fbsvc-e4f24a0be3.json")
+            json_path = os.path.join(base_dir, "mvcarch-ba47f-firebase-adminsdk-fbsvc-792719514e.json")
 
             # Verify that the JSON file exists
             if not os.path.exists(json_path):

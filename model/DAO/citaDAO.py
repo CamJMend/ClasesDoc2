@@ -1,6 +1,6 @@
 from model.Objects.cita import Cita
 from dbConnection.FirebaseConnection import FirebaseConnection
-
+import uuid
 class AddCitaDAO:
     def __init__(self):
         self.firebase = FirebaseConnection()
@@ -12,7 +12,7 @@ class AddCitaDAO:
     def agregar_cita(self, fecha, hora, motivo, id_paciente):
         try:
             cita = Cita(
-                id_cita = len(self.citas_ref.get()) + 1,
+                id_cita = str(uuid.uuid4()),
                 fecha=fecha,
                 hora=hora,
                 motivo=motivo,
@@ -45,10 +45,17 @@ class AddCitaDAO:
     
     def actualizar_estado(self, cita_id, estado):
         try:
-            cita_ref = self.citas_ref.document(cita_id)
-            cita_ref.update({"estado": estado})
-            print(f"Estado de la cita {cita_id} actualizado a {estado}.")
-            return True
+            # Query documents where the "id_cita" field equals the provided cita_id
+            query = self.citas_ref.where("id_cita", "==", cita_id).stream()
+            updated = False
+            for doc in query:
+                # Update each matching document
+                self.citas_ref.document(doc.id).update({"estado": estado})
+                updated = True
+                print(f"Estado de la cita con id_cita {cita_id} actualizado a {estado}.")
+            if not updated:
+                print(f"No se encontró ninguna cita con id_cita {cita_id}.")
+            return updated
         except Exception as e:
             print(f"Error al actualizar estado de la cita: {e}")
             return False
