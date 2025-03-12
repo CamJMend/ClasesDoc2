@@ -1,4 +1,5 @@
 from model.Objects.cita import Cita
+from model.Objects.paciente import Paciente
 from model.DAO.pacienteDAO import PacienteDAO
 
 class PacienteController:
@@ -11,3 +12,6 @@ class PacienteController:
 
     def cancelar_cita(self, cita_id):
         self.paciente_dao.cancelar_cita(cita_id)
+    
+    def add_paciente(self, paciente: Paciente):
+        self.paciente_dao.add_paciente(paciente)

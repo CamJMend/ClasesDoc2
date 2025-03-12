@@ -2,5 +2,25 @@
 
 {% block content %}
 <h2>Médico</h2>
-<p>Aquí puedes revisar y gestionar citas.</p>
+
+<!-- Formulario para revisar citas -->
+<form method="POST">
+    <h3>Revisar Citas</h3>
+    <label for="medico_id">ID de Médico:</label>
+    <input type="text" id="medico_id" name="medico_id" required>
+    <button type="submit" name="revisar_citas">Revisar Citas</button>
+</form>
+
+<!-- Mostrar citas -->
+{% if citas %}
+    <h3>Citas Asignadas</h3>
+    <ul>
+        {% for cita in citas %}
+        <li>
+            ID: {{ cita.id }}, Fecha: {{ cita.fecha }}, Hora: {{ cita.hora }}, 
+            Motivo: {{ cita.motivo }}, Estado: {{ cita.estado }}
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
 {% endblock %}

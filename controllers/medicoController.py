@@ -1,3 +1,4 @@
+from model.Objects.medico import Medico
 from model.DAO.medicoDAO import MedicoDAO
 
 class MedicoController:
@@ -12,3 +13,6 @@ class MedicoController:
 
     def cancelar_cita(self, cita_id):
         self.medico_dao.cancelar_cita(cita_id)
+    
+    def add_medico(self, medico: Medico):
+        self.medico_dao.add_medico(medico)

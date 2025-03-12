@@ -1,3 +1,4 @@
+from model.Objects.medico import Medico
 from dbConnection.FirebaseConnection import FirebaseConnection
 
 class MedicoDAO:
@@ -7,6 +8,8 @@ class MedicoDAO:
             raise ConnectionError("Error de conexión a la base de datos")
         else:
             self.citas_ref = self.firebase.db.collection("citas")
+            self.medicos_ref = self.firebase.db.collection("medicos") 
+
 
     def aceptar_cita(self, cita_id):
         try:
@@ -37,3 +40,16 @@ class MedicoDAO:
             print("Cita no encontrada")
         except Exception as e:
             print(f"Error al cancelar cita: {e}")
+    
+    def add_medico(self, medico):
+        if self.medicos_ref is None:
+            print("❌ No se puede conectar a Firebase (medicos)")
+            return
+
+        try:
+            if not isinstance(medico, Medico):
+                raise ValueError("❌ El objeto no es una instancia de Medico")
+            self.medicos_ref.add(medico.create_dictionary())
+            print("✅ Médico agregado correctamente")
+        except Exception as e:
+            print(f"❌ Error al agregar médico: {e}")

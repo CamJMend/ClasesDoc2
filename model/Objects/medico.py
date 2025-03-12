@@ -1,4 +1,4 @@
-from model.usuario import Usuario
+from model.Objects.usuario import Usuario
 
 class Medico(Usuario):
     def __init__(self, id, nombre, fecha_nacimiento, especialidad, horario_trabajo):

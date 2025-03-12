@@ -1,4 +1,5 @@
 from model.Objects.cita import Cita
+from model.Objects.paciente import Paciente
 from dbConnection.FirebaseConnection import FirebaseConnection
 
 class PacienteDAO:
@@ -8,6 +9,7 @@ class PacienteDAO:
             raise ConnectionError("Error de conexión a la base de datos")
         else:
             self.citas_ref = self.firebase.db.collection("citas")
+            self.pacientes_ref = self.firebase.db.collection("pacientes")
 
     def agendar_cita(self, cita):
         if not isinstance(cita, Cita):
@@ -28,3 +30,16 @@ class PacienteDAO:
             print("Cita no encontrada")
         except Exception as e:
             print(f"Error al cancelar cita: {e}")
+    
+    def add_paciente(self, paciente):
+        if self.pacientes_ref is None:
+            print("❌ No se puede conectar a Firebase (pacientes)")
+            return
+
+        try:
+            if not isinstance(paciente, Paciente):
+                raise ValueError("❌ El objeto no es una instancia de Paciente")
+            self.pacientes_ref.add(paciente.create_dictionary())
+            print("✅ Paciente agregado correctamente")
+        except Exception as e:
+            print(f"❌ Error al agregar paciente: {e}")

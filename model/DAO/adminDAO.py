@@ -1,3 +1,4 @@
+from model.Objects.admin import Admin
 from dbConnection.FirebaseConnection import FirebaseConnection
 
 class AdminDAO:
@@ -8,6 +9,7 @@ class AdminDAO:
         else:
             self.citas_ref = self.firebase.db.collection("citas")
             self.usuarios_ref = self.firebase.db.collection("usuarios")
+            self.usuarios_ref = self.firebase.db.collection("admins")
             self.medicos_ref = self.firebase.db.collection("medicos")
             self.enfermeras_ref = self.firebase.db.collection("enfermeras")
 
@@ -55,3 +57,14 @@ class AdminDAO:
             return horarios if horarios else "No hay horarios registrados para este usuario"
         except Exception as e:
             print(f"Error al obtener horarios: {e}")
+    
+    def add_admin(self, admin_usuario):
+        try:
+            if not isinstance(admin_usuario, Admin):
+                raise ValueError("❌ El objeto no es una instancia de Adminn")
+            data = admin_usuario.create_dictionary()
+            data["rol"] = "admin"
+            self.admins.add(data)
+            print("✅ Admin agregado correctamente")
+        except Exception as e:
+            print(f"❌ Error al agregar admin: {e}")

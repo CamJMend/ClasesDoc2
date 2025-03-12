@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h2>Enfermera</h2>
+<form method="POST">
+    <label for="cita_id">ID de Cita:</label>
+    <input type="text" id="cita_id" name="cita_id" required>
+    <label for="estado">Nuevo Estado:</label>
+    <input type="text" id="estado" name="estado" required>
+    <button type="submit" name="actualizar_estado_cita">Actualizar Estado</button>
+</form>
+
+<!-- Formulario para registrar signos vitales -->
+<form method="POST">
+    <h3>Registrar Signos Vitales</h3>
+    <label for="paciente_id">ID de Paciente:</label>
+    <input type="text" id="paciente_id" name="paciente_id" required>
+    <label for="signos">Signos Vitales:</label>
+    <textarea id="signos" name="signos" required></textarea>
+    <button type="submit" name="registrar_signos">Registrar Signos</button>
+</form>
+{% endblock %}

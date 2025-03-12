@@ -1,3 +1,4 @@
+from model.Objects.admin import Admin
 from model.DAO.adminDAO import AdminDAO
 
 class AdminController:
@@ -12,3 +13,6 @@ class AdminController:
 
     def ver_horarios_de_trabajo(self, usuario_id):
         return self.admin_dao.ver_horarios_de_trabajo(usuario_id)
+    
+    def add_admin(self, admin: Admin):
+        self.admin_dao.add_admin(admin)

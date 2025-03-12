@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h2>Administrador</h2>
+<form method="POST">
+    <button type="submit" name="gestionar_citas">Gestionar Citas</button>
+</form>
+
+{% if citas %}
+    <ul>
+        {% for cita in citas %}
+        <li>
+            ID: {{ cita.id_cita }}, Fecha: {{ cita.fecha }}, Hora: {{ cita.hora }}, 
+            Motivo: {{ cita.motivo }}, Estado: {{ cita.estado }}
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

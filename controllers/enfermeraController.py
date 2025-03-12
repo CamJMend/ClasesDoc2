@@ -1,3 +1,4 @@
+from model.Objects.enfermera import Enfermera
 from model.DAO.enfermeraDAO import EnfermeraDAO
 
 class EnfermeraController:
@@ -12,3 +13,6 @@ class EnfermeraController:
 
     def actualizar_consulta(self, cita_id, nuevos_datos):
         self.enfermera_dao.actualizar_consulta(cita_id, nuevos_datos)
+    
+    def add_enfermera(self, enfermera: Enfermera):
+        self.enfermera_dao.add_enfermera(enfermera)
